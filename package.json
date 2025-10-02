@@ -11,7 +11,11 @@
   },
   "keywords": ["queue", "messaging", "message-queue", "async"],
   "author": "amazingmax",
-  "license": "MIT",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxxiejay/badger-mq-lite"
+  },
   "dependencies": {
     "dotenv": "^17.2.2",
     "sqlite": "^5.1.1",
