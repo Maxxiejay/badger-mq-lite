@@ -1,0 +1,10 @@
+[
+  {
+    "id": "05903267-877e-4486-b01e-1b87d103529f",
+    "body": {
+      "task": "send-email",
+      "to": "user@example.com"
+    },
+    "acked": false
+  }
+]
