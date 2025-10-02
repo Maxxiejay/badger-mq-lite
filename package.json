@@ -9,7 +9,12 @@
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "keywords": ["queue", "messaging", "message-queue", "async"],
+  "keywords": [
+    "queue",
+    "messaging",
+    "message-queue",
+    "async"
+  ],
   "author": "amazingmax",
   "license": "ISC",
   "repository": {
@@ -21,10 +26,5 @@
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "uuid": "^13.0.0"
-  },
-  "devDependencies": {
-    "body-parser": "^2.2.0",
-    "express": "^5.1.0",
-    "nodemon": "^3.1.10"
   }
 }
