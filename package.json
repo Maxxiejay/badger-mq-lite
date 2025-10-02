@@ -1,6 +1,6 @@
 {
   "name": "badger-mq-lite",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple pluggable messaging queue (memory, file, sqlite) with optional Express server",
   "main": "src/index.js",
   "type": "module",
@@ -21,10 +21,11 @@
     "type": "git",
     "url": "git+https://github.com/Maxxiejay/badger-mq-lite"
   },
-  "dependencies": {
-    "dotenv": "^17.2.2",
+  "peerDependencies": {
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7",
+    "sqlite3": "^5.1.7"
+  },
+  "dependencies": {
     "uuid": "^13.0.0"
   }
 }
