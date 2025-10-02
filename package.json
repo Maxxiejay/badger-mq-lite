@@ -1,6 +1,6 @@
 {
   "name": "badger-mq-lite",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A simple pluggable messaging queue (memory, file, sqlite) with optional Express server",
   "main": "src/index.js",
   "type": "module",
