@@ -1,24 +1,26 @@
 {
-  "name": "badger-mq",
+  "name": "badger-mq-lite",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "A simple pluggable messaging queue (memory, file, sqlite) with optional Express server",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["queue", "messaging", "message-queue", "async"],
+  "author": "amazingmax",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "^2.2.0",
     "dotenv": "^17.2.2",
-    "express": "^5.1.0",
-    "nodemon": "^3.1.10",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",
     "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
   }
 }

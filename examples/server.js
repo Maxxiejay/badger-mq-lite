@@ -1,6 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { storage, getStorageOption } from "./storage/index.js";
+import { storage, getStorageOption } from "../src/index.js";
 
 console.log("Using storage option:", getStorageOption());
 
@@ -43,4 +43,5 @@ app.get("/queues/:name/messages", (req, res) => {
   if (!messages) return res.status(404).json({ error: "Queue not found" });
   res.json(messages);
 });
+
 app.listen(7185, () => console.log("Message queue running on port 7185"));
