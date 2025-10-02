@@ -1,7 +1,16 @@
 import fs from "fs";
 import path from "path";
-import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+let sqlite3;
+try {
+  const sqlite3Module = await import("sqlite3");
+  sqlite3 = sqlite3Module.default || sqlite3Module;
+} catch (e) {
+  throw new Error(
+    "SQLite adapter selected, but `sqlite` and `sqlite3` are not installed. Please run `npm install sqlite sqlite3`."
+  );
+}
+
 
 // Ensure storage folder exists
 const storageDir = path.resolve("./storage/sqlite");

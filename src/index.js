@@ -1,3 +1,3 @@
-import { storage, getStorageOption } from "../adapters/index.js";
+import { queue } from "../adapters/index.js";
 
-export { storage, getStorageOption };
+export { queue };
