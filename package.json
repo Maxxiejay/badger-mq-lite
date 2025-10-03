@@ -1,6 +1,6 @@
 {
   "name": "badger-mq-lite",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "A simple pluggable messaging queue (memory, file, sqlite) with optional Express server",
   "main": "src/index.js",
   "type": "module",
@@ -13,6 +13,8 @@
     "queue",
     "messaging",
     "message-queue",
+    "badger-mq",
+    "badger-mq-lite",
     "async"
   ],
   "author": "amazingmax",
@@ -23,13 +25,17 @@
   },
   "peerDependencies": {
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "mysql2": "^3.15.1"
   },
   "peerDependenciesMeta": {
     "sqlite": {
       "optional": true
     },
     "sqlite3": {
+      "optional": true
+    },
+    "mysql2": {
       "optional": true
     }
   },
