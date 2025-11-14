@@ -57,7 +57,7 @@ export const sqlite = {
   listQueues: async () => {
     const db = await initDb();
     const rows = await db.all(`SELECT DISTINCT queue FROM messages`);
-    return rows.map(r => r.queue);
+    return rows.map((r) => r.queue);
   },
 
   // Delete a queue
@@ -74,7 +74,9 @@ export const sqlite = {
       `INSERT INTO messages (queue, body, acked) VALUES (?, ?, 0)`,
       [name, JSON.stringify(body)]
     );
-    const row = await db.get(`SELECT * FROM messages WHERE id = ?`, [result.lastID]);
+    const row = await db.get(`SELECT * FROM messages WHERE id = ?`, [
+      result.lastID,
+    ]);
     return { ...row, body: JSON.parse(row.body) };
   },
 
@@ -98,10 +100,27 @@ export const sqlite = {
     return result.changes > 0;
   },
 
+  // Delete all acked messages
+  purgeQueue: async (name) => {
+    const db = await initDb();
+    const result = await db.run(`DELETE messages WHERE queue = ? AND acked = 1`, [name]);
+    return result.changes > 0;
+  },
+
+  // Handle failed jobs
+  async moveToDeadLetterQueue(name, id) {
+    const db = await initDb();
+    const result = await db.run(
+      `UPDATE messages SET queue = dead_jobs WHERE queue = ? AND id = ?`,
+      [name, id]
+    );
+    return result.changes > 0;
+  },
+
   // Get all messages
   getMessages: async (name) => {
     const db = await initDb();
     const rows = await db.all(`SELECT * FROM messages WHERE queue = ?`, [name]);
-    return rows.map(r => ({ ...r, body: JSON.parse(r.body) }));
-  }
+    return rows.map((r) => ({ ...r, body: JSON.parse(r.body) }));
+  },
 };

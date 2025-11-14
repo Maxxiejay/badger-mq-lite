@@ -33,7 +33,8 @@ export const file = {
   },
 
   listQueues: () => {
-    return fs.readdirSync(dataDir)
+    return fs
+      .readdirSync(dataDir)
       .filter((f) => f.endsWith(".json"))
       .map((f) => path.basename(f, ".json"));
   },
@@ -67,6 +68,40 @@ export const file = {
       return true;
     }
     return false;
+  },
+
+  purgeQueue: (name) => {
+    let queue = loadQueue(name);
+    const before = queue.length;
+
+    // Keep only messages that are NOT acked
+    queue = queue.filter((m) => !m.acked);
+
+    saveQueue(name, queue);
+    return queue.length !== before; // true if anything was removed
+  },
+
+  moveToDeadLetterQueue: (name, id) => {
+    let queue = loadQueue(name);
+
+    const index = queue.findIndex((m) => m.id === id);
+    if (index === -1) return false;
+
+    // Remove the message from the source queue
+    const [msg] = queue.splice(index, 1);
+    saveQueue(name, queue);
+
+    // Load or create dead letter queue
+    const deadQueueName = "dead_jobs";
+    let deadQueue = loadQueue(deadQueueName);
+
+    // Optionally annotate the message
+    msg.queue = deadQueueName;
+
+    deadQueue.push(msg);
+    saveQueue(deadQueueName, deadQueue);
+
+    return true;
   },
 
   getMessages: (name) => {

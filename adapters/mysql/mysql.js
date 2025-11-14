@@ -75,6 +75,11 @@ export const mysqlAdapter = {
     return { queue: name, deleted: result.affectedRows };
   },
 
+  async purgeQueue(name){
+    await pool.query(`DELETE FROM messages WHERE acked = 1`)
+    return { queue: name, deleted: result.affectedRows }
+  },
+
   // Send a message
   async sendMessage(name, body) {
     const id = uuidv4();
@@ -102,6 +107,21 @@ export const mysqlAdapter = {
   async ackMessage(name, id) {
     const [result] = await pool.query(
       `UPDATE messages SET acked = 1 WHERE queue = ? AND id = ?`,
+      [name, id]
+    );
+    return result.affectedRows > 0;
+  },
+
+  // Delete acked messages
+  async purgeQueue(name) {
+    const [result] = await pool.query(`DELETE messages WHERE queue = ? AND acked = 1`, [name]);
+    return result.affectedRows > 0;
+  },
+
+  // Handle failed jobs
+  async moveToDeadLetterQueue(name, id){
+    const [result] = await pool.query(
+      `UPDATE messages SET queue = dead_jobs WHERE queue = ? AND id = ?`,
       [name, id]
     );
     return result.affectedRows > 0;
