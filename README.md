@@ -66,8 +66,11 @@ const messages = await mq.receiveMessages("emailQueue");
 // Ack messages
 const messages = await mq.ackMessage("emailQueue", "message-id");
 
-// Get All Queue messages
-const messages = await mq.ackMessage("emailQueue");
+// Delete all acked messages
+const messages = await mq.purgeQueue("emailQueue", "message-id");
+
+// Move messages to DLQ
+const messages = await mq.moveToDeadLetterQueue("emailQueue", "message-id");
 
 // Delete a queue
 await mq.deleteQueue("emailQueue");
@@ -150,6 +153,8 @@ Each adapter must implement these methods:
   deleteQueue(queueName),
   sendMessage(queueName, body),
   ackMessage(queueName, messageId),
+  purgeQueue(queueName, messageId),
+  moveToDeadLetterQueue(queueName, messageId),
   receiveMessage(queueName),
   getMessages(queueName),
   purgeQueue(queueName)
