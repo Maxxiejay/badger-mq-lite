@@ -103,16 +103,18 @@ export const sqlite = {
   // Delete all acked messages
   purgeQueue: async (name) => {
     const db = await initDb();
-    const result = await db.run(`DELETE messages WHERE queue = ? AND acked = 1`, [name]);
+    const result = await db.run(
+      `DELETE FROM messages WHERE queue = ? AND acked = 1`,
+      [name]
+    );
     return result.changes > 0;
   },
 
-  // Handle failed jobs
-  async moveToDeadLetterQueue(name, id) {
+  moveToDeadLetterQueue: async (name, id) => {
     const db = await initDb();
     const result = await db.run(
-      `UPDATE messages SET queue = dead_jobs WHERE queue = ? AND id = ?`,
-      [name, id]
+      `UPDATE messages SET queue = ? WHERE queue = ? AND id = ?`,
+      ["dead_jobs", name, id]
     );
     return result.changes > 0;
   },

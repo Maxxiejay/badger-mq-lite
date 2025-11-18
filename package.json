@@ -1,11 +1,11 @@
 {
   "name": "badger-mq-lite",
-  "version": "1.2.0",
+  "version": "1.2.4",
   "description": "A simple pluggable messaging queue (memory, file, sqlite)",
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "queue",
